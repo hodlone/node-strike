@@ -1,0 +1,35 @@
+{
+  "name": "strike",
+  "version": "1.0.0",
+  "description": "api",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags",
+    "build": "tsc",
+    "format": "prettier --write \"src//*.ts\" \"src//*.js\"",
+    "lint": "tslint -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hodlone/node-strike.git"
+  },
+  "author": "Ricardo Alonzo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hodlone/node-strike/issues"
+  },
+  "homepage": "https://github.com/hodlone/node-strike#readme",
+  "dependencies": {
+    "axios": "0.26.1"
+  },
+  "devDependencies": {
+    "@types/node": "17.0.24",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.6.3"
+  }
+}
