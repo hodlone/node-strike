@@ -1,8 +1,13 @@
 {
-  "name": "strike",
-  "version": "1.0.0",
+  "name": "node-strike",
+  "version": "1.0.2",
   "description": "api",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "package.json"
+  ],
   "scripts": {
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",

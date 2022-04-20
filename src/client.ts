@@ -1,4 +1,4 @@
-import axios, { Axios, AxiosResponse } from "axios";
+import axios, { Axios, AxiosError, AxiosResponse } from 'axios';
 import {
   CreateSubscriptionRequest,
   Event,
@@ -12,23 +12,23 @@ import {
   Quote,
   UpdateSubscriptionRequest,
   WebhookSubscription,
-} from "./types";
+} from './types';
 
-export class Strike {
-  public baseUrl: string = "https://api.strike.me";
+export class NodeStrike {
+  public baseUrl: string = 'https://api.strike.me';
   private client: Axios;
 
   /**
    * @param apiKey the strike secret token.
    * @param apiVersion (defaults to v1).
    */
-  constructor(apiKey: string, apiVersion = "v1") {
-    this.baseUrl = "https://api.strike.me/" + apiVersion;
+  constructor(apiKey: string, apiVersion = 'v1') {
+    this.baseUrl = 'https://api.strike.me/' + apiVersion;
     this.client = axios.create({
       baseURL: this.baseUrl,
       headers: {
         Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
   }
@@ -37,13 +37,13 @@ export class Strike {
    * @returns a promise to a list of current rates.
    */
   async getRates(): Promise<GetRatesResponse> {
-    const response: AxiosResponse = await this.client.get("/rates/ticker");
+    const response: AxiosResponse = await this.client.get('/rates/ticker');
 
     return response.data;
   }
 
   /**
-   * @param id the profile's id.
+   * @param {string} id the profile's id.
    * @returns a promise to a user's public profile.
    */
   async fetchPublicProfileById(id: string): Promise<PublicProfile> {
@@ -97,7 +97,7 @@ export class Strike {
    * @returns a promise to an array of invoices.
    */
   async getInvoices(): Promise<FetchInvoicesResponse> {
-    const response: AxiosResponse = await this.client.get("/invoices");
+    const response: AxiosResponse = await this.client.get('/invoices');
 
     return response.data;
   }
@@ -108,7 +108,7 @@ export class Strike {
    */
   async newInvoice(request: NewInvoiceRequest): Promise<Invoice> {
     const response: AxiosResponse = await this.client.post(
-      "/invoices",
+      '/invoices',
       request
     );
 
@@ -178,7 +178,7 @@ export class Strike {
    */
   async getSubscriptions(): Promise<GetSubscriptionsResponse> {
     try {
-      const response: AxiosResponse = await this.client.get("/subscriptions");
+      const response: AxiosResponse = await this.client.get('/subscriptions');
 
       return response.data;
     } catch (error) {
@@ -195,7 +195,7 @@ export class Strike {
   ): Promise<WebhookSubscription> {
     try {
       const response: AxiosResponse = await this.client.post(
-        "/subscriptions",
+        '/subscriptions',
         request
       );
 
@@ -237,8 +237,8 @@ export class Strike {
       );
 
       return response.data;
-    } catch (error) {
-      this.extractErrorMessage(error);
+    } catch (e) {
+      this.extractErrorMessage(e);
     }
   }
 
@@ -258,8 +258,8 @@ export class Strike {
     }
   }
 
-  extractErrorMessage(error) {
-    const customError = new Error("Request Failed");
+  extractErrorMessage(error: AxiosError) {
+    const customError = new Error('Request Failed');
 
     if (error.response && error.response.data) {
       throw Object.assign(customError, error.response.data);

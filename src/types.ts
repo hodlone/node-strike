@@ -1,12 +1,12 @@
 export type InvoiceState = 'UNPAID' | 'PAID' | 'CANCELLED' | 'PENDING';
 export type EventTypes = "invoice.created" | "invoice.updated";
-export type StrikeCurrencies = "BTC" | "USD" | "EUR" | "USDT" | "GBP";
+export type Currencies = "BTC" | "USD" | "EUR" | "USDT" | "GBP";
 
 export interface NewInvoiceRequest {
   correlationId?: string;
   description?: string;
   amount: {
-    currency: StrikeCurrencies;
+    currency: Currencies;
     amount: string;
   };
 }
@@ -21,8 +21,8 @@ export interface CreateSubscriptionRequest {
 
 export interface Rate {
   amount: string;
-  sourceCurrency: StrikeCurrencies;
-  targetCurrency: StrikeCurrencies;
+  sourceCurrency: Currencies;
+  targetCurrency: Currencies;
 }
 
 export interface GetRatesResponse extends Array<Rate> {}
@@ -33,7 +33,7 @@ export interface PublicProfile {
   description: string;
   canReceive: boolean;
   currencies: {
-    currency: StrikeCurrencies;
+    currency: Currencies;
     isDefaultCurrency: boolean;
     isAvailable: boolean;
     isInvoiceable: boolean;
@@ -57,7 +57,7 @@ export interface GetEventsResponse {
 export interface Invoice {
   invoiceId: string;
   amount: {
-    currency: StrikeCurrencies;
+    currency: Currencies;
     amount: string
   };
   state: InvoiceState;
@@ -81,17 +81,17 @@ export interface Quote {
   expiration: string;
   expirationInSec: number;
   targetAmount: {
-    currency: StrikeCurrencies;
+    currency: Currencies;
     amount: string
   };
   sourceAmount: {
-    currency: StrikeCurrencies;
+    currency: Currencies;
     amount: string
   };
   conversionRate: {
     amount: string;
-    sourceCurrency: StrikeCurrencies;
-    targetCurrency: StrikeCurrencies
+    sourceCurrency: Currencies;
+    targetCurrency: Currencies
   }
 }
 
