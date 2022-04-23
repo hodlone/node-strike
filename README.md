@@ -1,48 +1,31 @@
 # node-strike
 
-# TODO:
-## Get Events Filters
-OData supported operators:
+A wrapper client for [Strike's public API](https://docs.strike.me/api/).
 
-logical operators: Or, And, Equal, GreaterThan, GreaterThanOrEqual, LessThan, LessThanOrEqual
-arithmetic operators: None
-functions: None
-OData filtering syntax can be seen here. Ordering syntax can be seen here.
+## Usage
 
-Query Parameters
-$filter string
-Filter the results using OData syntax. Supported properties: created, eventType, deliverySuccess
+Import the wrapper and instantiate a client.
 
-$orderby string
-Order the results using OData syntax. Supported properties: created
+```
+import { NodeStrike } from 'node-strike'; // or const { NodeStrike } = require('node-strike');
 
-$skip number
-Skip the specified number of entries
 
-$top number
-Get the top X number of records. Default value: 50. Max value: 100
+(async () => {
+  const client = new NodeStrike('<API_KEY>')
+  
+  const response = await client.getInvoices();
 
-## Get Invoices Filters 
-Required scopes:
+  console.log(response);
+})()
+```
 
-partner.invoice.read
+## Typings
 
-OData supported operators:
+This wrapper provides typings that correspond 1:1 to the expeceted requests and responses in the specification, making this a transparent wrapper.
 
-logical operators: Or, And, Equal
-arithmetic operators: None
-functions: None
-OData filtering syntax can be seen here. Ordering syntax can be seen here.
+## TODO
 
-Query Parameters
-$filter string
-Filter the results using OData syntax. Supported properties: invoiceId, created, currency, state, issuerId, receiverId, payerId, correlationId
-
-$orderby string
-Order the results using OData syntax. Supported properties: created
-
-$skip number
-Skip the specified number of entries
-
-$top number
-Get the top X number of records. Default value: 50. Max value: 100
+- Add support for testnet.
+- Add support for OData operators for fetching events and invoices.
+- Add custom API error type.
+- Add unit tests.
